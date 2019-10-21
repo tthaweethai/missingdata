@@ -6,9 +6,7 @@
 # Monday October 21, 2019
   
 get.ipw.se <- function(dset,analysis.model.formula,selection.model.formula){
-  
-  cc.fit <- glm(analysis.model.formula, data = dset)
-  
+   
   selection.model.fit <- glm(selection.model.formula, data = dset, family = "binomial")
   dset$pi.hat <- predict(selection.model.fit, dset, type = "response")
   analysis.model.fit <- glm(analysis.model.formula, data = dset, weights = 1/pi.hat)
