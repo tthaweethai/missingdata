@@ -83,13 +83,6 @@ get.ipw.se <- function(dset,analysis.model.formula,selection.model.formula){
   Sigma.hat <- solve(tau.hat) %*% Omega.hat %*% t(solve(tau.hat))
   se <- sqrt(diag(Sigma.hat)/N)
   
-  Omega.hat.naive <- 1/N * Reduce("+",lapply(1:N,function(i){
-    nu.i <- S.theta[,i]
-    return(nu.i%*%t(nu.i))
-  }))
-  Sigma.hat.naive <- solve(tau.hat) %*% Omega.hat.naive %*% t(solve(tau.hat))
-  se.naive <- sqrt(diag(Sigma.hat.naive)/N)
-  
-  return(c(coef(cc.fit),beta.hat,se,se.naive))
+  return(c(beta.hat,se))
   
 }
