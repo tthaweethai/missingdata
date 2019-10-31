@@ -17,12 +17,11 @@ get.ipw.se <- function(dset,analysis.model.formula,selection.model.formula){
   N <- nrow(dset)
   Z.mat <- model.matrix(selection.model.fit)
   q <- ncol(Z.mat)
-  X.model.frame <- as.matrix(model.frame(formula=analysis.model.formula,data=dset, na.action=NULL))
-  X.mat <- cbind(rep(1,N),X.model.frame[,2:ncol(X.model.frame)])
+  X.mat <- model.matrix(analysis.model.fit,data=dset,na.action='na.pass')
   p <- ncol(X.mat)
-  R.var <- paste(selection.model.formula)[2]
+  R.var <- all.vars(selection.model.formula)[1]
   R.vec <- dset[,R.var]
-  Y.var <- paste(analysis.model.formula)[2]
+  Y.var <- all.vars(analysis.model.formula)[1]
   Y.vec <- dset[,Y.var]
   pi.hat <- dset[,"pi.hat"]
   
